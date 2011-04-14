@@ -10,6 +10,7 @@ class Client():
         self.password = config.download.api_password
         self.bits = config.download.request_numbits
         self.fileType = config.download.request_datatype
+        #@TODO The request URLs should be defined in config.downloads
         if test:
             self.restore_get_url = 'http://arecibo.tc.cornell.edu/palfadataapi/dataflow.asmx/RestoreTest'
             self.location_get_url = 'http://arecibo.tc.cornell.edu/palfadataapi/dataflow.asmx/LocationTest'
@@ -30,4 +31,6 @@ class Client():
     def parse_response(self, data):
         dom = parseString(data)
         response = dom.getElementsByTagName('string')[0]
+        #@TODO if string element does not exist, response will be = []
+        #and the line below will raise an error
         return response.firstChild.data
